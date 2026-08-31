@@ -17,6 +17,7 @@ Hosted on GitHub Pages: `https://rbowser12.github.io/playground/`
 - **Calendly inline booking** — embedded scheduling widget lets visitors self-book sessions directly on the page; powered by [Calendly](https://calendly.com)
 - **Contact form** — integrated with [Formspree](https://formspree.io) for email delivery; inline success/error feedback via JavaScript (no page redirect)
 - **FAQ accordion** — native `<details>`/`<summary>` elements, no JavaScript required
+- **Error handling** — custom branded 404 page, Calendly silent-failure fallback, and no-JS form notice
 - **Accessibility** — WCAG-compliant markup including skip link, ARIA landmark labels, `aria-hidden` decorative icons, and screen-reader-announced form errors
 
 ---
@@ -39,6 +40,7 @@ Hosted on GitHub Pages: `https://rbowser12.github.io/playground/`
 ```
 /
 └── index.html      # Entire site — HTML, CSS, and JS in one file
+└── 404.html        # Custom branded 404 error page (served by GitHub Pages automatically)
 └── README.md       # This file
 ```
 
@@ -121,6 +123,30 @@ The integration is structured to make a future migration straightforward. When y
 
 ---
 
+## Error Handling
+
+### Custom 404 Page (`404.html`)
+
+GitHub Pages automatically serves `404.html` from the repository root when a visitor navigates to a URL that doesn't exist. The custom page matches the site's design — same color palette, typography, and "Practice Name" logo — and shows a short friendly message with a single "Return to Home" button.
+
+No configuration is required. Deploying the file to the `main` branch is all that is needed.
+
+> **Customise:** Update the practice name in `404.html` at the same time you update it in `index.html`.
+
+### Calendly Widget Unavailable Fallback
+
+If Calendly's CDN is unreachable or the widget is blocked by a content blocker, the widget container would otherwise render as a blank white space. A CSS-only fallback (`.calendly-inline-widget:empty::after`) displays a message inside the widget area:
+
+> *"Online booking is temporarily unavailable — please call or email us to schedule"*
+
+The phone number and email address shown in the fallback are pulled from the same placeholder values used in the `#contact` section. Update them together when going live.
+
+### Contact Form — No JavaScript
+
+If a visitor has JavaScript disabled, the form falls back to a plain HTML `POST` to Formspree, which works correctly but redirects the visitor to Formspree's hosted thank-you page instead of showing the inline confirmation. A `<noscript>` notice above the submit button warns these users in advance.
+
+---
+
 ## Deploying to GitHub Pages
 
 1. Push this repository to GitHub.
@@ -148,6 +174,8 @@ Before going live, replace all placeholder content in `index.html`:
 - [ ] Footer address and phone number
 - [ ] Formspree form endpoint ID
 - [ ] Calendly profile URL in the booking widget `data-url` attribute
+- [ ] Practice name in `404.html` (nav logo and page title)
+- [ ] Phone number and email in the Calendly fallback CSS (`index.html` — search for `calendly-inline-widget:empty::after`)
 
 ---
 

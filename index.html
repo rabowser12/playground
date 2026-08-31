@@ -369,6 +369,23 @@
       height: 1px;
       background: var(--border);
     }
+    /* Fallback shown when Calendly JS is blocked or CDN is unreachable (:empty = no iframe injected yet) */
+    .calendly-inline-widget:empty::after {
+      content: 'Online booking is temporarily unavailable.\APlease call or email us to schedule.\A\A\2706  (555) 000-0000\A\2709  hello@practicename.com';
+      white-space: pre;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 2rem;
+      font-size: 0.95rem;
+      line-height: 2;
+      color: var(--muted);
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #ffffff;
+    }
 
     @media (max-width: 820px) {
       .about-grid,
@@ -416,7 +433,7 @@
     <div class="container">
       <div class="about-grid">
         <div class="about-img">
-          <!-- Replace with a real image: <img src="about-photo.jpg" alt="Welcoming therapy office"> -->
+          <!-- Replace with a real image: <img src="about-photo.jpg" alt="Welcoming therapy office interior"> -->
           <span>Office / Atmosphere Photo</span>
         </div>
         <div class="about-text">
@@ -488,7 +505,7 @@
     <div class="container">
       <div class="bio-grid">
         <div class="bio-photo">
-          <!-- Replace with a real headshot: <img src="therapist.jpg" alt="Therapist Name"> -->
+          <!-- Replace with a real headshot: <img src="therapist.jpg" alt="Dr. [Name], Licensed Psychologist"> -->
           <span>Therapist<br>Headshot</span>
         </div>
         <div class="bio-text">
@@ -616,6 +633,7 @@
             <label for="message">Message</label>
             <textarea id="message" name="message" placeholder="Tell us a little about what you're looking for…" required></textarea>
           </div>
+          <noscript><p style="font-size:0.8rem;color:var(--muted);">Note: you'll be redirected to a confirmation page after submitting.</p></noscript>
           <button type="submit" class="btn-primary">Send Message</button>
           <p style="font-size:0.8rem;color:var(--muted);">We respect your privacy. Your information will never be shared.</p>
           <p style="font-size:0.8rem;color:var(--muted);border:1px solid var(--border);border-radius:6px;padding:0.65rem 0.8rem;margin-top:-0.2rem;"><strong style="color:var(--text);">Privacy Notice:</strong> This form is not HIPAA-secure. Please do not include any sensitive personal health information, medical history, diagnoses, or treatment details in your message. Use it only to request an appointment or ask general questions.</p>
